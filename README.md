@@ -14,12 +14,17 @@ All my projects in 42 Seoul
 | 2      | [**push_swap**](https://github.com/yoouyeon/42Cursus/tree/main/Minitalk) | [![jeyoon's 42 push_swap Score](https://badge42.vercel.app/api/v2/cl3en3hhl008509lhaz01qt8t/project/2531964)](https://github.com/JaeSeoKim/badge42) |
 | 2      | [**minitalk**](https://github.com/yoouyeon/42Cursus/tree/main/push_swap) | [![jeyoon's 42 minitalk Score](https://badge42.vercel.app/api/v2/cl3en3hhl008509lhaz01qt8t/project/2501056)](https://github.com/JaeSeoKim/badge42) |
 | 2      | [**so_long**](https://github.com/yoouyeon/42Cursus/tree/main/so_long) | [![jeyoon's 42 so_long Score](https://badge42.vercel.app/api/v2/cl3en3hhl008509lhaz01qt8t/project/2587297)](https://github.com/JaeSeoKim/badge42) |
+| 2      | **Exam Rank 02** | [![jeyoon's 42 Exam Rank 02 Score](https://badge42.vercel.app/api/v2/cl3en3hhl008509lhaz01qt8t/project/2626005)](https://github.com/JaeSeoKim/badge42) |
 | 3      | [**Philosophers**](https://github.com/yoouyeon/42Cursus/tree/main/Philosophers) | [![jeyoon's 42 Philosophers Score](https://badge42.vercel.app/api/v2/cl3en3hhl008509lhaz01qt8t/project/2602516)](https://github.com/JaeSeoKim/badge42) |
-| 3      | [**minishell**]()                                            | [![jeyoon's 42 minishell Score](https://badge42.vercel.app/api/v2/cl3en3hhl008509lhaz01qt8t/project/2604682)](https://github.com/JaeSeoKim/badge42)                                           |
+| 3      | [**minishell**](https://github.com/326eunjin/minishell)                                            | [![jeyoon's 42 minishell Score](https://badge42.vercel.app/api/v2/cl3en3hhl008509lhaz01qt8t/project/2604682)](https://github.com/JaeSeoKim/badge42)                                           |
+| 3      | **Exam Rank 03**                                             | Not subscribed yet                                           |
 | 4      | [**NetPractice**]()                                          | Not subscribed yet                                           |
-| 4      | [**cub3d**]()                                                | Not subscribed yet                                           |
+| 4      | [**cub3d / miniRT**]()                                       | Not subscribed yet                                           |
 | 4      | [**CPP Module**]()                                           | Not subscribed yet                                           |
+| 4      | **Exam Rank 04**                                             | Not subscribed yet                                           |
 | 5      | [**ft_containers**]()                                        | Not subscribed yet                                           |
 | 5      | [**Inception**]()                                            | Not subscribed yet                                           |
 | 5      | [**webserv**]()                                              | Not subscribed yet                                           |
+| 5      | **Exam Rank 05**                                             | Not subscribed yet                                           |
 | 6      | [**ft_transcendence**]()                                     | Not subscribed yet                                           |
+| 6      | **Exam Rank 06**                                             | Not subscribed yet                                           |
