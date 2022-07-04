@@ -17,7 +17,7 @@ All my projects in 42 Seoul
 | 2      | **Exam Rank 02** | [![jeyoon's 42 Exam Rank 02 Score](https://badge42.vercel.app/api/v2/cl3en3hhl008509lhaz01qt8t/project/2626005)](https://github.com/JaeSeoKim/badge42) |
 | 3      | [**Philosophers**](https://github.com/yoouyeon/42Cursus/tree/main/Philosophers) | [![jeyoon's 42 Philosophers Score](https://badge42.vercel.app/api/v2/cl3en3hhl008509lhaz01qt8t/project/2602516)](https://github.com/JaeSeoKim/badge42) |
 | 3      | [**minishell**](https://github.com/326eunjin/minishell)                                            | [![jeyoon's 42 minishell Score](https://badge42.vercel.app/api/v2/cl3en3hhl008509lhaz01qt8t/project/2604682)](https://github.com/JaeSeoKim/badge42)                                           |
-| 3      | **Exam Rank 03**                                             | Not subscribed yet                                           |
+| 3      | **Exam Rank 03**                                             | [![jeyoon's 42 Exam Rank 03 Score](https://badge42.vercel.app/api/v2/cl3en3hhl008509lhaz01qt8t/project/2638412)](https://github.com/JaeSeoKim/badge42)                                           |
 | 4      | [**NetPractice**]()                                          | Not subscribed yet                                           |
 | 4      | [**cub3d / miniRT**]()                                       | Not subscribed yet                                           |
 | 4      | [**CPP Module**]()                                           | Not subscribed yet                                           |
