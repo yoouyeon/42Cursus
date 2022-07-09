@@ -158,6 +158,8 @@ private으로 지정한 멤버들에 외부에서 직접적으로 접근하려 �
 
 ## 🌸 입출력 스트림
 
+
+
 ## 🌸 initialization list
 
 ### 🌱 참고
@@ -267,6 +269,31 @@ int	Account::_totalNbWithdrawals = 0;
 
 - [C++ 트레이닝 책 참고](https://www.hanbit.co.kr/store/books/look.php?p_code=B7818919239)
 
+### 🌱 상수 멤버 변수
+
+값이 결정되면 변경할 수 없는 멤버. 멤버 선언 앞에 const 지정자를 붙여서 상수 멤버를 선언한다.
+
+```cpp
+class Circle
+{
+	private:
+		const double pi;
+		int radius;
+};
+```
+
+각각의 개체가 상수 멤버를 따로 가지기 때문에 객체별로 상수 멤버의 값이 달라도 상관없다. (실행 중에 변하지만 않으면 된다.)
+
+열거형을 사용하는 방식도 있긴 한데 열거형은 객체 지향과 어울리지 않는다는 점에 유의하자. (왜?)
+
+### 🌱 상수 멤버 함수
+
+상수 멤버 함수는 객체의 상태를 읽기만 하는 함수이다.
+
+선언한 함수가 객체의 상태를 변경하지 않고 읽기만 한다면 함수명 뒤에 const 지정자를 붙여준다.
+
+만약에 상수 객체를 선언했다면, 그 객체는 내부의 멤버 변수들의 값을 변경할 수 없다. 따라서 상수 객체는 오직 상수 멤버 함수만 호출할 수 있다.
+
 ## 🌸 General rules
 
 ### 🌱 참고
@@ -276,24 +303,153 @@ int	Account::_totalNbWithdrawals = 0;
 - <https://en.wikipedia.org/wiki/Pragma_once>
 - <https://kldp.org/node/46662>
 - <https://caniro.tistory.com/24>
+- <http://doc.kldp.org/KoreanDoc/html/GNU-Make/GNU-Make-4.html>
 
 ### 🌱 friend
 
-### 🌱 pragma once
+객체의 신뢰성 향상을 위해서 정보 은폐를 엄격히 지키라고는 하지만 엄격한 은페는 불편할 때가 있기 때문에 예외를 두어서 특정 대상에 대해서는 모든 멤버를 공개할 수 있게 하는데 이거를 프렌드 지정이라고 한다. 
+
+우리 과제에서는 사용하면 0점임
+
+#### 프렌드 함수 (전역 함수)
+
+클래스 밖의 전역 함수를 frend로 지정할 수 있다. 이렇게 friend로 지정된 함수는 클래스 밖의 함수이기 때문에 클래스의 멤버 함수는 아니지만 클래스의 모든 멤버에 자유롭게 접근할 수 있는 특권이 주어진다.
+
+#### 프렌드 클래스
+
+두 개의 클래스가 밀접한 관계 / 상대편을 참조해야 하는 일이 많다면 클래스를 통째로 프렌드로 지정해도 된다. 클래스 선언문에 friend 키워드를 붙이고 클래스 이름을 밝혀주면 해당 클래스는 우리 클래스의 모든 멤버에 자유롭게 접근할 수 있다.
+
+#### 프렌드 멤버함수
+
+특정 클래스의 멤버 함수만 프렌드로 지정할 수 있다. ... 방법과 개념은 위와 비슷하다. 프렌드 클래스를 지정했을 때 권한이 너무 크기 때문에 조금 좁은 범위의 권한을 주는 느낌.
+
+암튼 쓰면 안된다.
+
+### 🌱 #pragma once
+
+헤더의 중복 인클루드를 방지하기 위해서 사용하는 전처리기
+
+기존에 사용하고 있던 include guards (`ifndef`) 는 한번 읽었던 헤더파일도 일단 다시 읽어봐야 하지만 `#pragma once`는 각 파일별로 프리프로세서(컴파일러)가 앞서 include 했음을 기억하면 되므로 이후에 동일한 헤더파일이 등장했을 때 include guards와 달리 다시 읽어보지 않아도 된다. → 그래서 `#pragma once`를 사용하게 되면 컴파일 시간이 단축된다는 장점이 있다.
+
+근데 `#pragma once`는 표준이 아니기 때문에 컴파일러에서 `#pragma once`를 지원하는지를 먼저 알아봐야 하고 (c/c++/gcc에서는 `#pragma once`를 지원하긴 한다.) 경로가 다르지만 동일한 파일을 가리킨다거나 해서 (hard link, soft link 등) 오류가 발생할 수도 있다.
+
+ex02의 Account.hpp에서 `#pragma once`를 사용해서 찾아본건데 우리 과제에서는 파일의 양이 많지 않기 때문에 굳이 비표준인 `#pragma once`를 사용할 필요는 없어보인다...
 
 ### 🌱 Makefile
+
+```makefile
+CC = cc
+NAME = minishell
+CFLAGS	=	-Wall -Wextra -Werror
+```
+
+```makefile
+NAME	=	megaphone
+CXX	=	c++
+CXXFLAGS	=	-std=c++98 -pedantic -Wall -Wextra -Werrorㄴ
+```
+
+makefile에 대해선 좀 더 공부해봐야 할 것 같다.. 공부 좀 더 해서 TIL에 정리해야지.
+
+아무튼 c++ 플래그는 CXXFLAGS고 c++ 컴파일러는 CXX이다. 그래서 원래 쓰던대로 CFLAGS를 사용하면 실제로 적용이 되지 않는 문제가 있다고 한다. 하하
 
 ## 🌸 ex00
 
 ### 🌱 참고
 
+- [C++ 트레이닝 책 참고](https://www.hanbit.co.kr/store/books/look.php?p_code=B7818919239)
+- <https://cplusplus.com/reference/string/basic_string/>
+- <https://cplusplus.com/reference/iterator/>
+- <https://ko.wikipedia.org/wiki/%EB%B0%98%EB%B3%B5%EC%9E%90>
+- <https://cplusplus.com/reference/cctype/toupper/?kw=toupper>
+- <https://yechoi.tistory.com/48>
+
 ### 🌱 std::string
+
+#### 문자열 클래스
+
+기본적으론 C와 동일하게 배열로 문자의 집합을 표현하는 방식으로 문자열을 표현한다. 여기서 발전해서 Class를 이용해서 보다 편하게 문자열을 타입으로 사용할 수 있게 했다.
+
+std namespace에 정의되어 있고 string 헤더파일에 선언되어 있다. 
+
+```cpp
+typedef basic_string<char, char_traits<char>, allocator<char> > string;
+```
+
+클래스 템플릿으로 선언되어있는 basic_string으로 만든 string 클래스. 자세한건 나중에 템플릿 공부하면서 다시 보자.
+
+클래스이기 때문에 다양한 방법으로 문자열 객체를 생성할 수 있다.
+
+```cpp
+#include <string>
+
+std::string s1("string 1");	// s1 = "string 1"
+std::string s2(s1);	// s2 = "string 1"
+std::string s3;	// s3 = 
+char *str = "hello world";
+std::string s4(str, str + 5);	//s4 = "hello"
+```
+
+문자열 객체는 범위를 벗어날 때 소멸자가 메모리를 자동으로 정리한다.
+
+주의해야 하는 것인지는 모르겠지만 basic_string 템플릿은 다양한 형태의 문자열을 제공하기 때문에 string 이 항상 널 종료 문자열이라고는 할 수 없다.
+
+#### 입출력
+
+string 헤더 파일에 cout 과 cin에 대해서 << 연산자와 >> 연산자가 모두 오버로딩 되어있어 기본 자료형처럼 입출력받을 수 있다.
+
+문자열의 개별 문자에 접근할 때에는 at 함수나 배열의 인덱스처럼 접근할 수 있다. 나는 그냥 배열의 인덱스처럼 접근하려고 한다. (at 함수를 이용하면 범위를 벗어난 접근을 시도했을 때 예외를 발생시켜서 좀 더 안전하다.)
+
+이렇게 접근한 문자는 상수 문자열이 아닌 이상 변경도 가능하다.
 
 ### 🌱 iterator
 
+반복자. 배열과 같이 연속적으로 저장되어있는 자료구조의 각각의 요소에 반복적으로 접근할 수 있게 해 주는 객체. 아무튼 컨테이너에 저장되어 있는 요소에 순차적으로 접근할 수 있게 해 주는 객체이다.
+
+C++에서는 다양한 컨테이너를 제공하는데 (문자열, vector, list, map, set...) 이 컨테이너의 종류에 상관 없이 특정 객체에 접근할 수 있는 함수가 있으면 편리하다! 해서 만들어진 클래스가 iterator고 ... 그냥 좀 더 편리하게 사용할 수 있게 만든 포인터 클래스라고 생각하고 있다.
+
+08과제 까지는 STL 컨테이너를 쓰지 못하기 때문에 ... string 같은데서나 iterator를 사용할 수 있을 듯 하다.
+
+[cplusplus의 예시 코드](https://m.cplusplus.com/reference/string/string/begin/) 를 보면 진짜 포인터랑 비슷한 방식이구나.. 하고 알 수 있다.
+
+```cpp
+// string::begin/end
+#include <iostream>
+#include <string>
+
+int main ()
+{
+  std::string str ("Test string");
+  for ( std::string::iterator it=str.begin(); it!=str.end(); ++it)
+    std::cout << *it;
+  std::cout << '\n';
+
+  return 0;
+}
+```
+
+- str.begin() : string의 첫번째 문자를 가리키는 이터레이터를 반환한다.
+- str.end() : string의 *past-the-end* 문자를 가리키는 이터레이터를 반환한다. 여기서 *past-the-end* 문자라는 것은 string의 마지막 문자 바로 뒤의 문자를 의미한다. (theoretical character that would follow the last character in the string.) 어쨌든 string에 포함되는 영역이 아니기 때문에 iterator가 str.end()이 아닐 때까지 반복문을 돌려주면 string의 문자에 순차적으로 접근할 수 있다.
+
+![valid expressions](./imgs/iterator.png)
+
+가능한 iterator 연산자들. 증감연산자로 다음 요소에 접근할 수 있다.
+
 ### 🌱 std::toupper
 
+```cpp
+int toupper ( int c );
+```
+
+**Convert lowercase letter to uppercase**
+
+반환값은 char로 암묵적으로 캐스팅 될 수 있는 int 값이다. 걍 넣어주면 된다는 뜻.
+
+참고로 : <https://cplusplus.com/reference/locale/toupper/> (아직 이해가 잘 안되어서 사용하지는 못했음.)
+
 ### 🌱 std::endl
+
+
 
 ## 🌸 ex01
 
