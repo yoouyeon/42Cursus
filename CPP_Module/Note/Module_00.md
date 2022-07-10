@@ -2,6 +2,64 @@
 
 과제를 하면서 공부한 내용들
 
+- [🌸 Namespaces](#---namespaces)
+  * [🌱 참고](#-----)
+- [🌸 Class](#---class)
+  * [🌱 참고](#------1)
+  * [🌱 member function](#---member-function)
+  * [🌱 액세스 지정자](#----------)
+  * [🌱 class](#---class)
+  * [🌱 인스턴스](#-------)
+  * [🌱 생성자](#------)
+  * [🌱 소멸자](#------)
+- [🌸 입출력 스트림](#----------)
+  * [🌱 참고](#------2)
+  * [🌱 구조](#-----)
+  * [🌱 <<, >> 연산자](#-------------)
+  * [🌱 출력 스트림](#---------)
+  * [🌱 입력 스트림](#---------)
+- [🌸 initialization list](#---initialization-list)
+  * [🌱 참고](#------3)
+- [🌸 static (정적 멤버)](#---static--------)
+  * [🌱 참고](#------4)
+  * [🌱 this](#---this)
+  * [🌱 정적 멤버 변수](#-----------)
+  * [🌱 정적 멤버 함수](#-----------)
+- [🌸 const (상수 멤버)](#---const--------)
+  * [🌱 참고](#------5)
+  * [🌱 상수 멤버 변수](#-----------)
+  * [🌱 상수 멤버 함수](#-----------)
+- [🌸 General rules](#---general-rules)
+  * [🌱 참고](#------6)
+  * [🌱 friend](#---friend)
+    + [프렌드 함수 (전역 함수)](#--------------)
+    + [프렌드 클래스](#-------)
+    + [프렌드 멤버함수](#--------)
+  * [🌱 #pragma once](#----pragma-once)
+  * [🌱 Makefile](#---makefile)
+- [🌸 ex00](#---ex00)
+  * [🌱 참고](#------7)
+  * [🌱 std::string](#---std--string)
+    + [문자열 클래스](#-------)
+    + [입출력](#---)
+  * [🌱 iterator](#---iterator)
+  * [🌱 std::toupper](#---std--toupper)
+  * [🌱 std::endl](#---std--endl)
+- [🌸 ex01](#---ex01)
+  * [🌱 참고](#------8)
+  * [🌱 std::getline](#---std--getline)
+  * [🌱 iomanip](#---iomanip)
+    + [setw](#setw)
+  * [🌱 string stream](#---string-stream)
+  * [🌱 오버로딩](#-------)
+- [🌸 ex02](#---ex02)
+  * [🌱 참고](#------9)
+  * [🌱 Timestamp 찍기](#---timestamp---)
+    + [time 함수](#time---)
+    + [localtime 함수](#localtime---)
+    + [strftime 함수](#strftime---)
+  * [🌱 Vector 생성자](#---vector----)
+
 ## 🌸 Namespaces
 
 ### 🌱 참고
@@ -134,7 +192,7 @@ private으로 지정한 멤버들에 외부에서 직접적으로 접근하려 �
 
 확장된 구조체를 struct 키워드로 선언했을 경우에는 기본 액세스 지정자가 public이지만 class 키워드로 선언했을 경우에는 기본 액세스 지정자가 private이라는 차이점이 있다.
 
-클래스도 타입과 동등한 자격을 가져서 기본 자료형과 거의 동일하게 포인터 연산, 배열 같은 것들을 사용하고 선언 할 수 있다.
+클래스도 타입과 동등한 자격을 가져서 기본 자료형과 거의 동일하게 포인터 연산, 배열 같은 것들을 사용하고 선언할 수 있다.
 
 ### 🌱 인스턴스
 
@@ -158,7 +216,47 @@ private으로 지정한 멤버들에 외부에서 직접적으로 접근하려 �
 
 ## 🌸 입출력 스트림
 
+### 🌱 참고
 
+- [C++ 트레이닝 책 참고](https://www.hanbit.co.kr/store/books/look.php?p_code=B7818919239)
+- <https://www.geeksforgeeks.org/c-stream-classes-structure/>
+- <https://cplusplus.com/reference/istream/istream/operator%3E%3E/>
+- <https://cplusplus.com/reference/ostream/ostream/operator%3C%3C/>
+- <https://cplusplus.com/reference/string/basic_string/operator%3E%3E/>
+- <https://cplusplus.com/reference/string/basic_string/operator%3C%3C/>
+
+### 🌱 구조
+
+![Input/Output library](./imgs/input:output_library.png)
+
+### 🌱 <<, >> 연산자
+
+기본 타입에 대한 <<, >> 함수가 모두 정의되어 있고, 출력 후 자기 자신을 다시 리턴해서 `cout << "hello" << " world";` 이런 식으로 쓸 수 있다.
+
+### 🌱 출력 스트림
+
+표준 출력 객체 : cout
+
+<< 연산자로 데이터를 보내서 출력한다. 기본 타입에 대해서 오버로딩되어있기 때문에 타입 상관없이 그냥 보내면 알아서 맞는 타입으로 출력해준다.
+
+### 🌱 입력 스트림
+
+표준 입력 객체 : cin
+
+키보드의 입력을 >> 연산자로 cin 객체로 보낸다. 역시 기본 타입에 대해서 오버로딩되어있기 대문에 타입에 상관없이 알아서 맞는 타입으로 넣어준다.
+
+- 공백은 기본적으로 구분자로 취급된다. 따라서 공백을 입력받을 수 없다.
+- 무효한 입력을 만나면 즉시 입력을 중지한다. (정수는 숫자만 입력, 문자열은 공백에서 입력을 끊어버림)
+- 읽지 못한 데이터는 버퍼에 남겨져서 다음 입력때 읽힌다. → 만약에 어떤 이유로 읽히지 못한 데이터가 있을 경우에는 버퍼를 비워줘야 한다.
+
+입력 스트림의 에러 플래그
+
+- failbit : 입력에 실패했을 경우 on (예: 정수를 입력받아야 하는데 문자가 입력된 경우)
+- eofbit : EOF에 도달한 경우 on
+- badbit : 스트림이 물리적으로 손상된 경우 on. 더 이상 읽을 수 없다.
+- goodbit : 위의 세 비트가 on 되지 않은 경우 on. 일단 0으로 정의되어 있다.
+
+위 4개의 플래그의 상태는 `fail()`, `eof()`, `bad()`, `good()` 함수로 확인할 수 있다.
 
 ## 🌸 initialization list
 
@@ -307,7 +405,7 @@ class Circle
 
 ### 🌱 friend
 
-객체의 신뢰성 향상을 위해서 정보 은폐를 엄격히 지키라고는 하지만 엄격한 은페는 불편할 때가 있기 때문에 예외를 두어서 특정 대상에 대해서는 모든 멤버를 공개할 수 있게 하는데 이거를 프렌드 지정이라고 한다. 
+객체의 신뢰성 향상을 위해서 정보 은폐를 엄격히 지키라고는 하지만 엄격한 은폐는 불편할 때가 있기 때문에 예외를 두어서 특정 대상에 대해서는 모든 멤버를 공개할 수 있게 하는데 이거를 프렌드 지정이라고 한다. 
 
 우리 과제에서는 사용하면 0점임
 
@@ -346,12 +444,14 @@ CFLAGS	=	-Wall -Wextra -Werror
 ```makefile
 NAME	=	megaphone
 CXX	=	c++
-CXXFLAGS	=	-std=c++98 -pedantic -Wall -Wextra -Werrorㄴ
+CXXFLAGS	=	-std=c++98 -pedantic -Wall -Wextra -Werror
 ```
 
 makefile에 대해선 좀 더 공부해봐야 할 것 같다.. 공부 좀 더 해서 TIL에 정리해야지.
 
-아무튼 c++ 플래그는 CXXFLAGS고 c++ 컴파일러는 CXX이다. 그래서 원래 쓰던대로 CFLAGS를 사용하면 실제로 적용이 되지 않는 문제가 있다고 한다. 하하
+아무튼 c++ 플래그는 CXXFLAGS고 c++ 컴파일러는 CXX이다. 그래서 원래 쓰던대로 CFLAGS를 사용하면 실제로 적용이 되지 않는 문제가 있다고 한다. (암묵적 / 묵시적 규칙. C++ 파일을 컴파일할때는 기본적으로 CXX 와 CXXFLAGS를 찾아서 컴파일한다.)
+
+<http://doc.kldp.org/KoreanDoc/html/GNU-Make/GNU-Make-4.html>
 
 ## 🌸 ex00
 
@@ -449,24 +549,165 @@ int toupper ( int c );
 
 ### 🌱 std::endl
 
-
+입출력 매니퓰레이터 중 하나. 스트림에 개행문자를 넘겨주는 동시에 출력 버퍼를 비운다.
 
 ## 🌸 ex01
 
 ### 🌱 참고
 
+- [C++ 트레이닝 책 참고](https://www.hanbit.co.kr/store/books/look.php?p_code=B7818919239)
+- [전문가를 위한 C++ 책 참고](https://www.hanbit.co.kr/media/books/book_view.html?p_code=B3215427289)
+- <https://m.cplusplus.com/reference/sstream/stringstream/>
+- <https://stackoverflow.com/questions/24504582/how-to-test-whether-stringstream-operator-has-parsed-a-bad-type-and-skip-it>
+- <https://cplusplus.com/reference/string/string/getline/?kw=getline>
+
 ### 🌱 std::getline
+
+cin 객체는 공백을 기준으로 입력을 받지만, getline 객체는 기본적으로 개행문자를 구분자로 입력을 받는다.
+
+```cpp
+#include <string>
+istream& getline (istream& is, string& str, char delim);
+istream& getline (istream& is, string& str);
+```
+
+getline은 구분자 입력 뒤에 구분자를 버퍼에서 제거하지만, cin은 개행문자를 버퍼에 그냥 둔다는 점을 기억해서 버퍼 관리를 해 주도록 하자.
 
 ### 🌱 iomanip
 
-#### setfill
+IO Manipulators 가 모여있는 헤더파일. 매니퓰레이터 객체를 스트림에 넘겨서 입출력 스트림의 동작을 조정할 수 있다.
 
 #### setw
+
+```cpp
+std::cout << std::setw(10) << "hello";
+```
+
+최소 출력 폭을 고정한다. 일시적인 효과를 주기 때문에 매번 출력 전에 출력 스트림에 넘겨줘야 한다.
+
+### 🌱 string stream
+
+string에 스트림 개념을 추가한 것이다. 파일 입출력처럼 string 객체로부터 입력받고, string객체에 출력하는 것이다.
+
+기본적으로 토큰화 기능을 제공하기 때문에 파싱도 간단하게 할 수 있다.
+
+(istringstream 기준으로) 입력받은 string을 공백을 기준으로 자르고, 앞에서부터 차례대로 >> 오른쪽 변수의 자료형과 맞는 값을 찾아온다.
+
+```cpp
+#include <iostream>
+#include <string>
+#include <sstream>
+
+void print_state (const std::ios& stream) {
+  std::cout << " good()=" << stream.good();
+  std::cout << " eof()=" << stream.eof();
+  std::cout << " fail()=" << stream.fail();
+  std::cout << " bad()=" << stream.bad() << std::endl;
+}
+
+int main()
+{
+  std::string input_str;
+  std::getline(std::cin, input_str);
+  std::stringstream ss(input_str);
+  int a, b;
+  ss >> a;
+  std::cout << "a : " << a << '\n';
+  print_state(ss);
+  ss.clear();
+  ss >> b;
+  std::cout << "b : " << b << '\n';
+  print_state(ss);
+  return (0);
+}
+```
+
+stringstream의 파싱이 어떻게 되는 것인지 궁금해서 테스트를 좀 해봤는데 흔히(?) 알려진 단순히 공백을 구분자로 자르는 식으로 파싱이 되는게 아닌 것 같다;
+
+![stringstream_test](./imgs/stringstream_test.png)
+
+가장 첫번째로 보이는 값이 int형이면 int형의 끝까지 받아오는 것 같다. 그리고 그 입력이 성공하면 다음 입력을 받아오는 것 같고, 그 입력이 실패하면 다음 입력으로 넘어가지 않는 것 같다.
+
+스택오버플로우 답변을 보니까 잘못 읽은 것을 무시하기 위해서는 또 별도의 작업이 필요한 듯 한데 이 과제에서는 일단 첫번째 입력값만 확인해보면 되므로 나중에... 필요하면 찾아보는 걸로 하자...
+
+### 🌱 오버로딩
+
+같은 이름의 변수를 두 개 선언할 수는 없지만 함수는 파라미터가 다르면 같은 이름으로 중복으로 정의가 가능하다. 이걸 함수의 오버로딩이라고 한다.
+
+파라미터의 목록을 보고 함수 구분이 가능하면 오버로딩이 가능한것이다. 반환 타입만 다른 경우에는 오버로딩이 불가능함! (어떤 함수를 "호출" 하는지가 문제기 때문에 반환 타입은 고려 요소가 아니다.)
 
 ## 🌸 ex02
 
 ### 🌱 참고
 
-### 🌱 iomanip - put_time
+- <https://m.cplusplus.com/reference/ctime/time/>
+- <https://m.cplusplus.com/reference/ctime/localtime/>
+- <https://m.cplusplus.com/reference/ctime/strftime/?kw=strftime>
+- <https://skuld2000.tistory.com/137>
+- <https://m.cplusplus.com/reference/ctime/tm/>
 
-### 🌱 오버로딩
+### 🌱 Timestamp 찍기
+
+#### time 함수
+
+현재 시간을 받아오는 함수이다. 
+
+```cpp
+time_t time (time_t* timer);
+```
+
+`time_t` 변수의 포인터를 넘겨주면, 1970년 1월 1일 0시 0분 부터 현재까지의 시간을 초 단위로 카운트해서 넘겨준다. `time_t`는 그냥 정수형 타입이다.
+
+#### localtime 함수
+
+`time_t` 타입의 값을 `tm` 구조체 타입으로 바꾸어준다.
+
+```cpp
+struct tm * localtime (const time_t * timer);
+```
+
+`time` 함수로 받아온 `time_t` 값은 초 단위이기 때문에 사용의 편의를 위해서 `tm` 구조체로 바꾸어주는 것이 좋다. 
+
+```cpp
+struct tm {
+	int	tm_sec;		/* seconds after the minute [0-60] */
+	int	tm_min;		/* minutes after the hour [0-59] */
+	int	tm_hour;	/* hours since midnight [0-23] */
+	int	tm_mday;	/* day of the month [1-31] */
+	int	tm_mon;		/* months since January [0-11] */
+	int	tm_year;	/* years since 1900 */
+	int	tm_wday;	/* days since Sunday [0-6] */
+	int	tm_yday;	/* days since January 1 [0-365] */
+	int	tm_isdst;	/* Daylight Savings Time flag */
+	long	tm_gmtoff;	/* offset from UTC in seconds */
+	char	*tm_zone;	/* timezone abbreviation */
+};
+```
+
+이런 식으로 변환되어서 필요에 따라서 골라서 쓸 수 있다.
+
+#### strftime 함수
+
+`tm` 구조체의 내용을 `format`대로 만들어서 char형 배열로 만들어주는 함수이다.
+
+```cpp
+size_t strftime (char* ptr, size_t maxsize, const char* format, const struct tm* timeptr );
+```
+
+- `ptr` : `format`대로 만들어진 문자열을 저장할 `char`형 배열을 가리키는 포인터
+- `maxsize` : `null` 문자를 포함한 `ptr`에 들어갈 문자의 개수
+- `format` : `ptr`에 들어갈 문자열의 포맷을 지정한다. `printf` 의 `format` 인자처럼 사용하면 된다.
+  - `%Y` : 년 (4자리 숫자)
+  - `%m` : 월 (2자리 숫자)
+  - `%d` : 일 (2자리 숫자)
+  - `%H` : 시 (2자리 숫자, 24시간 포맷)
+  - `%M` : 분 (2자리 숫자)
+  - `%S` : 초 (2자리 숫자)
+
+- `timeptr` : `format`대로 출력해줄 `tm` 구조체 포인터
+
+### 🌱 Vector 생성자
+
+https://cplusplus.com/reference/vector/vector/vector/
+
+이 문제에서는 **range constructor** 를 사용했다.
