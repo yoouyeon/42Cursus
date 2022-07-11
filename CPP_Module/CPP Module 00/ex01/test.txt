@@ -1,0 +1,55 @@
+ADD
+Albert
+Suarez
+SAMSUNG Lions Pitcher
+2022575757
+Venezuela
+ADD
+Jose
+Pirela
+SAMSUNG Lions Outfielder
+2021-2022-6363
+Venezuela
+ADD
+David
+Buchanan
+SAMSUNG Lions Pitcher
+2020-2022-4-4
+United States
+ADD
+Rick
+VandenHurk
+SAMSUNG Lions Pitcher
+201320143232
+Netherlands
+ADD
+Darin
+Ruf
+SAMSUNG Lions Infielder
+2017-2019-50-50
+United States
+ADD
+Yamaico
+Navarro
+SAMSUNG Lions Infielder
+201420151212
+Dominicana
+ADD
+Drew
+Rucinskid
+NC Dinos Pitcher
+2019-2022-40-40
+United States
+ADD
+William
+Cuevas
+kt wiz Pitcher
+201920223232
+Venezuela
+ADD
+Aaron
+Altherr
+NC Dinos Outfielder
+2020-2021-2323
+United States
+
