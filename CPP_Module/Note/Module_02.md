@@ -77,7 +77,7 @@ Fixed&  Fixed::operator =(const Fixed& fixed)
 
 `+`, `-`, `*`, `/` 같은 연산자 기호는 명명 규칙상 함수명으로 사용해 줄 수 없기 때문에 `operator` 키워드를 붙이고 뒤에 정의할 연산자 기호를 붙여서 오버로딩해주면 된다.
 
-![operator_function_format](/./imgs/operator_function_format.png)
+![operator_function_format](./imgs/operator_function_format.png)
 
 이런 형식이라는 것을 알면 연산자 오버로딩이 엄청 간단해진다.
 
