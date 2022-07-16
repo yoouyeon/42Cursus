@@ -87,16 +87,154 @@ delete ptr;
 
 조건에 맞는 상수값을 case 문으로 지정한 뒤에, 조건에 맞는 경우에는 case 문 아래에 나오는 코드를 실행하고 break 가 나오면 종료한다. 만약에 이후의 case까지 모두 실행하고 싶은 경우에는 break를 걸어주지 않으면 된다! (이렇게 실행되는 것을 fallthrough라 부른다.) default 키워드를 넣어주면 앞선 모든 케이스와 일치하지 않는 경우의 동작을 지정해 줄 수 있다.
 
-## 🌸 ex00
+## 🌸 file stream
 
-## 🌸 ex01
+C++ 은 파일 입출력을 위해서 `std::ofstream`과 `std::ifstream` 클래스를 지원하고, 둘 다 `<fstream>` 헤더파일에 정의되어 있다. 파일 입출력 중 발생할 수 있는 에러상황의 경우에는 표준입출력 스트림에서와 동일하게 `good()`, `eof()`, `bad()`, `fail()` 함수를 이용해서 에러처리 해 주면 된다.
 
-## 🌸 ex02
+파일 스트림 생성자는 파일의 이름과 파일을 열 때 적용할 모드에 대한 인수를 받는다. C에서의 open 함수와 동일하게 모드들은 | 연산자로 조합해서 지정할수도 있다.
 
-## 🌸 ex03
+- `ios_base::app` : 파일을 열고 쓰기 연산을 수행하기 전에 파일 끝으로 간다.
+- `ios_base::ate` : 파일을 열고 즉시 파일 끝으로 간다.
+- `ios_base::binary` : 입출력을 기존 텍스트 모드에서 바이너리 모드로 실행한다.
+- `ios_base::in` : 입력할 파일을 열고 시작 지점부터 읽는다. (`ifstream` 기본 모드)
+- `ios_base::out` : 출력할 파일을 열고 시작 지점부터 쓴다. 기존 데이터가 있다면 덮어쓴다. (`ofstream` 기본 모드)
+- `ios_base::trunc` : 출력할 파일을 열고 기존 데이터를 모두 삭제한다.
 
-## 🌸 ex04
+`ifstream` 과 `ofstream` 소멸자는 자동으로 열었던 파일을 닫기 때문에 `close()` 함수를 직접적으로 호출하지 않아도 된다.
 
-## 🌸 ex05
+### 🌱 참고
 
-## 🌸 ex06
+- [전문가를 위한 C++](https://www.hanbit.co.kr/media/books/book_view.html?p_code=B3215427289)
+
+## 🌸 String method
+
+[String Class](https://github.com/yoouyeon/42Cursus/blob/main/CPP_Module/Note/Module_00.md#-stdstring)
+
+### 🌱 문자열 연산
+
+string은 클래스이지만 string 헤더파일을 인클루드하면 연산자들이 오버로딩되어 있기 때문에 마치 기본타입처럼 사용할 수 있다.
+
+```cpp
+// + 연산 (연결(결합))
+{
+	std::string A = "test";
+	std::string B = ".replace";
+	std::string C = A + B;	// C는 "test.replace" 이다.
+}
+
+// += 연산 (append)
+{
+	std::string A = "test";
+	std::string B = ".replace";
+	A += B;	// A는 "test.replace" 이다.
+}
+
+// 비교 연산자 (일치, 사전식 나열 순서에 따른 비교)
+{
+	std::string A = "ab";
+	std::string B = "cd";
+	std::string C = "ab";
+	if (A == B)
+		std::cout << "A == B" << std::endl;
+	else if (A > B)
+		std::cout << "A > B" << std::endl;
+	else
+		std::cout << "A < B" << std::endl;
+	if (A == C)
+		std::cout << "A == B" << std::endl;
+	else if (A > C)
+		std::cout << "A > C" << std::endl;
+	else
+		std::cout << "A < C" << std::endl;
+}
+```
+
+스트링을 할당하거나 크기를 조절하는 코드가 흩어져있어도 string 객체는 모두 스택 공간에 생성되기 때문에 scope를 벗어나는 즉시 할당된 메모리를 string 소멸자가 정리하기 때문에 메모리 누수 문제가 발생할 가능성이 적다. (string 내부에서는 계속해서 동적할당/해제가 반복되고 있기 때문에 string 내용을 저장하는 메모리는 힙에 할당이 되는 것 같다.)
+
+### 🌱 find
+
+```cpp
+size_t find (const string& str, size_t pos = 0) const;
+size_t find (const char* s, size_t pos = 0) const;
+size_t find (char c, size_t pos = 0) const;
+```
+
+문자열에서 문자열(char 배열 / 문자)를 찾아서 첫번째로 매칭되는 부분의 위치를 반환한다. 만약에 없으면 `std::npos`라는 상수를 반환한다. (cpluscplus 사이트에는 -1로 정의되어있다고 하는데 클러스터맥에선 좀 다른 것 같기도 하다. 아무튼 상수.)
+
+첫번째 인자는 호출한 string에서 찾고자 하는 문자열(char 배열 / 문자)이고 두번째 인자는 search를 시작할 문자열 상에서의 위치이다. 기본값은 0이고 만약에 string.length() 보다 pos가 크면 찾지 못하고 std::npos를 반환하는 것 같다.
+
+```cpp
+int main(void)
+{
+	std::string A = "aaabbbcccdddeeecccfff";
+	std::string B = "ccc";
+	std::cout << A.find(B) << std::endl;
+	std::cout << A.find("ccc") << std::endl;
+	std::cout << A.find(B, 10) << std::endl;
+	std::cout << A.find(B, 40) << std::endl;
+	std::cout << A.find('z') << std::endl;
+	return (0);
+}
+```
+
+![string_find_test](./imgs/string_find_test.png)
+
+### 🌱 erase
+
+```cpp
+string& erase (size_t pos = 0, size_t len = npos);
+```
+
+호출한 string에서 `pos`지점부터 `len` 만큼의 문자를 지운다. 이렇게 지운 뒤에 길이 또한 조정해준다. 기본값은 `pos = 0`,`len = npos`이므로 문자열의 시작부터 끝.
+
+```cpp
+int main(void)
+{
+	std::string A = "aaabbbcccdddeee";
+	std::cout << A << std::endl;
+	std::cout << A.length() << std::endl;
+	int idx = A.find("bbb");
+	A.erase(idx, 3);
+	std::cout << A << std::endl;
+	std::cout << A.length() << std::endl;
+	A.erase();
+	std::cout << A << std::endl;
+	std::cout << A.length() << std::endl;
+	return (0);
+}
+```
+
+![string_erase_test](./imgs/string_erase_test.png)
+
+### 🌱 insert
+
+```cpp
+string& insert (size_t pos, const string& str);
+```
+
+`pos` 위치 **앞**에 `str`을 삽입한다.(새로 삽입되는 문자열의 첫번째 문자 위치가 `pos`가 되는 것) 만약에 pos가 호출한 string의 length 보다 큰 경우에는 out_of_range 에러를 던진다.
+
+```cpp
+int main(void)
+{
+	std::string A = "aaabbbcccdddeee";
+	std::cout << A << std::endl;
+	std::cout << A.length() << std::endl;
+	int idx = A.find("bbb");
+	A.insert(idx, "zzz");
+	std::cout << A << std::endl;
+	std::cout << A.length() << std::endl;
+	return (0);
+}
+```
+
+![string_insert_test](./imgs/string_insert_test.png)
+
+### 🌱 참고
+
+- [전문가를 위한 C++](https://www.hanbit.co.kr/media/books/book_view.html?p_code=B3215427289)
+- [C++ 트레이닝](https://www.hanbit.co.kr/store/books/look.php?p_code=B7818919239)
+- <https://cplusplus.com/reference/string/string/find/>
+- <https://cplusplus.com/reference/string/string/insert/>
+- <https://cplusplus.com/reference/string/string/erase/>
+- <https://cplusplus.com/reference/string/string/npos/>
