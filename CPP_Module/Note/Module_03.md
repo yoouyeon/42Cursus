@@ -50,7 +50,146 @@ class 자식클래스 : public 부모클래스
 
 - [C++ 트레이닝](https://www.hanbit.co.kr/store/books/look.php?p_code=B7818919239)
 
-## 🌸 다형성 (가상 함수)
+## 🌸 virtual
 
-~~필수적인 내용은 아니지만 함수 상속 후 오버라이딩을 해야 하는 상황이고, 평가 중 발생할 수 있는 예상치 못한 상황(ex. fail..ㅜ)을 원천차단하기 위해서 (...) 미리 공부해둠. 본격적인 내용은 Module 04에 등장~~
+### 🌱 상속과 대입
 
+변수끼리 대입할때는 좌, 우변의 타입이 동일해야 하지만, 상속관계의 객체끼리는 타입이 다르더라도 어느정도 대입이 가능하다.
+
+Person 클래스를 상속받아 Student 클래스를 만들었을 때, 아래와 같은 대입이 가능하다.
+
+```cpp
+Person p = Student("jeyoon", "42 Seoul");
+```
+
+p 내부에는 Student 내에서 상속받은 Person의 멤버만 들어있다. (이 경우에는 그냥 Student 생성자로 생성한 Person 객체라고 해도 괜찮을 것 같다.)
+
+Person 은 Student의 멤버 일부만 들어있어도 완전한 Person 객체를 이룰 수 있지만, 반대의 경우는 온전한 Student 객체를 이룰 수 없기 때문에 자식의 객체 안에 부모 객체를 대입할수는 없다.
+
+포인터도 마찬가지로 대입이 가능하다.
+
+어찌 되었든, 부모는 자식을 대입받을 수 있고, 자식은 부모를 대입받을 수 없다.
+
+### 🌱 virtual 키워드의 필요성
+
+```cpp
+#include <iostream>
+#include <string>
+
+class Person
+{
+	protected:
+		std::string _name;
+	public:
+		Person(void){};
+		Person(std::string name){_name = name};
+		void shout(void){std::cout << _name << " : 으아아아아아아아" << std::endl;};
+};
+
+class Student : public Person
+{
+	private:
+		std::string _school;
+	public:
+		Student(std::string name, std::string school)
+		{
+			_name = name;
+			_school = school;
+		};
+		void shout(void){std::cout << _name << " : 흐아아아아아아악" << std::endl;};
+};
+
+int main(void)
+{
+	Person *p = new Student("jeyoon", "42 Seoul");
+	p->shout(); // ????
+}
+```
+
+이런 상황이라면 마지막 `p.shout()`의 출력 결과는 뭐가 나올까? p가 가리키는 객체는 Student 객체임에도 불구하고, p에서 오버라이딩 된 함수를 호출하면 으아아아아아아 가 출력이 된다.
+
+![](./imgs/cpp_module_03_non_virtual_function.png)
+
+이는 컴파일시에 p.shout() 를 p에 담긴 객체에 따라서 함수를 불러오는 것이 아닌, p의 타입에 해당하는(Person) 클래스에 가서 함수를 불러왔기 때문이다. 이런 경우를 정적 바인딩이라고 한다.
+
+이를 해결하기 위해서는 컴파일 시에 함수를 결정하는 것이 아닌 실행 중에 함수를 결정하는 동적 바인딩이 필요하고, 그것을 가능하게 하는 키워드가 virtual 키워드이다.
+
+### 🌱 가상함수
+
+앞에 virtual 키워드가 붙은 함수를 가상함수라고 한다.
+동작 방식은 아래의 흐름을 따른다.
+
+0. 클래스 내에 가상함수가 있는 객체가 생성되면 가상함수가 저장되어 있는 테이블을 생성하고, 그 테이블을 가리키는 포인터(이하 vfptr) 가 생성된다.
+
+1. 컴파일 중
+	- virtual 키워드가 없는 함수의 호출 : 정적바인딩
+	- virtual 키워드의 함수 호출 : 넘어간다.
+2. 실행 중
+	- virtual 키워드가 없는 함수의 호출 : 정적바인딩되었던 함수를 불러온다.
+	- virtual 키워드의 함수 호출
+		- 재정의되지 않은 경우 : 가상함수 테이블에서 함수를 불러온다.
+		- 재정의된 경우 : 재정의된 함수를 불러온다.
+
+그래서 아까 위의 예시를 아래와 같이 수정해서 다시 실행해보면
+
+```cpp
+class Person
+{
+	protected:
+		std::string _name;
+	public:
+		Person(void){};
+		Person(std::string name){_name = name;};
+		virtual void shout(void){std::cout << _name << " : 으아아아아아아아" << std::endl;};
+};
+```
+
+![](./imgs/cpp_module_03_virtual_function.png)
+
+Student의 shout인 흐아아아악이 출력이 된다.
+
+### 🌱 가상 소멸자
+
+소멸자는 오버라이딩되는 부분은 아니긴 하지만, 역시 비슷한 맥락에서 문제가 발생할 수 있어서 virtual 키워드를 붙여줘야 한다.
+
+```cpp
+class Person
+{
+	protected:
+		std::string _name;
+	public:
+		Person(void){};
+		Person(std::string name){_name = name;};
+		~Person(void){std::cout << "Person Bye Bye ~" << std::endl;};
+		virtual void shout(void){std::cout << _name << " : 으아아아아아아아" << std::endl;};
+}; 
+
+class Student : public Person
+{
+	private:
+		std::string _school;
+	public:
+	Student(std::string name, std::string school)
+	{
+		_name = name;
+		_school = school;
+	};
+	~Student(void){std::cout << "Student Bye Bye ~" << std::endl;};
+	void shout(void){std::cout << _name << " : 흐아아아아아아악" << std::endl;};
+};
+
+int main(void)
+{
+	Person *p = new Student("jeyoon", "42 Seoul");
+	p->shout();
+	delete p;
+}
+```
+
+이렇게 실행을 했을 때, 위와 동일한 흐름으로 p에는 Student 객체를 가리키는 값이 들어있지만, delete p를 했을 때에는 Person의 소멸자가 호출되게 된다.
+
+![](./imgs/cpp_module_03_non_virtual_destructor.png)
+
+따라서 이 경우에도 Person의 소멸자에 virtual 키워드를 붙여주면, p가 가리키는 객체에 맞게 Student의 소멸자가 호출이 되고, 뒤이어서 Person의 소멸자도 호출이 되어 깔끔하게 해제가 된다.
+
+![](./imgs/cpp_module_03_virtual_destructor.png)
