@@ -20,7 +20,7 @@ All my projects in 42 Seoul
 | 3      | **Exam Rank 03**                                             | [![jeyoon's 42 Exam Rank 03 Score](https://badge42.vercel.app/api/v2/cl3en3hhl008509lhaz01qt8t/project/2638412)](https://github.com/JaeSeoKim/badge42)                                           |
 | 4      | [**NetPractice**]()                                          | Not subscribed yet                                           |
 | 4      | [**cub3d / miniRT**]()                                       | Not subscribed yet                                           |
-| 4      | [**CPP Module**]()                                           | Not subscribed yet                                           |
+| 4      | [**CPP Module**](https://github.com/yoouyeon/42Cursus/tree/main/CPP_Module)                                           | Not subscribed yet                                           |
 | 4      | **Exam Rank 04**                                             | Not subscribed yet                                           |
 | 5      | [**ft_containers**]()                                        | Not subscribed yet                                           |
 | 5      | [**Inception**]()                                            | Not subscribed yet                                           |
