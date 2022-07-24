@@ -81,3 +81,23 @@ static void main(String[] args) {
 `letsHear` 함수에서는 `Animal` 객체를 받아와서 `talk` 함수를 호출한다. 만약 Subtype polymorphism이 잘 구현되어 있다면, `letsHear(new Cat())`로 `Cat` 객체를 `letsHear` 함수에 전달하면 "Meow!" 가 출력이 될 것이고, `letsHear(new Dog())`로 `Dog` 객체를 `letsHear` 함수에 전달하면 "Woof!" 가 출력이 될 것이다.
 
 이런 동작이 가능하게 하기 위해서는 동적 바인딩 (late binding)이 가능하게 해야 하고, C++에서는 가상함수 테이블을 이용해서 동적 바인딩을 하게 한다. 관련 내용은 CPP 03에서 공부했었다. ([CPP Module 03 note - virtual 참고](https://github.com/yoouyeon/42Cursus/blob/main/CPP_Module/Note/Module_03.md#-virtual))
+
+## 🌸 abstract classes
+
+### 🌱 순수 가상 함수 (Pure virtual method)
+
+클래스 정의 때 선언만 되고 구현은 되지 않는 함수를 말한다. 함수를 순수 가상 함수로 선언하면 컴파일러가 컴파일 시에 함수의 구현 부분을 찾지 않는다.
+
+순수 가상 함수를 선언하기 위해서는 함수 선언 뒤에 `=0` 을 붙여주면 된다. (문법임.)
+
+### 🌱 추상 클래스 (추상 베이스 클래스) (Abstract class)
+
+순수 가상 함수를 하나라도 가지고 있는 클래스라면, 그 클래스는 추상 클래스이다. 추상 클래스는 객체를 만들 수 없고, 상속만 해 줄 수 있다. (그래서 베이스 클래스라고 하는 것 같다.) 만약 추상 클래스의 객체를 만드려고 시도를 해도, 컴파일 단계에서 오류가 생긴다.
+
+하지만 자식 클래스를 생성할 때 부모 클래스의 생성자가 호출되므로, 역시 추상 클래스에서도 생성자와 소멸자가 모두 존재한다. (단독으로 쓰지 못할 뿐) 따라서 우리 과제에서 요구하는 Canonical Form 을 추상 클래스에서도 맞춰주는 것이 좋을 듯 하다. 
+
+추상 클래스를 상속받아서 인스턴스화 하고 싶다면, 추상 클래스 내의 모든 순수 가상 함수를 구체화해야 한다. 만약에 일부만 구체화 한다면 그 자식클래스 역시 또 다른 추상 클래스가 된다. 
+
+### 🌱 참고
+
+- [전문가를 위한 C++](https://www.hanbit.co.kr/media/books/book_view.html?p_code=B3215427289)
