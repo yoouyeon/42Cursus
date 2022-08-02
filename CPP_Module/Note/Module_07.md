@@ -12,6 +12,22 @@
 
 만약에 템플릿 함수를 호출할 때 `int`를 사용하면, 타입 인수인 `T`는 `int`가 된다. `std::string`을 사용하면, 타입인수 `T`는 `std::string` 타입이 된다.
 
+## 🌸 클래스 템플릿
+
+클래스 템플릿은 구조나 알고리즘은 같지만 멤버의 타입이 다른 클래스들을 만들어낼 때 사용한다.
+
+함수 템플릿과 비슷하게, 클래스 선언문 앞에 `template <typename T>` 를 붙여서 클래스 템플릿을 선언할 수 있고, 타입인수를 사용하고자 하는 멤버에 `T` 를 적어주면 된다.
+
+```cpp
+template <typename  T>
+class myclass
+{
+	... T 사용
+}
+```
+
+이렇게 적었을 때 `myclass`는 단순히 클래스 템플릿의 이름이다. 따라서 명확사레 클래스를 명시해야 하는 경우에는 이게 어떤 타입으로 만들어진 `myclass`인지를 알려줄 필요가 있다. 그래서 다른 곳에서 `myclass`를 사용할 때에는 어떤 타입의 myclass인지를 명시하기 위해서 `myclass<int>` 이런 식으로 항상 꺾쇠 안에 사용하고 있는 타입을 명시해주어야 한다. `myclass<int>` 이렇게 적어준 것이 비로소 클래스 이름이라고 할 수 있다고 하는 것 같다.
+
 ## 🌸 템플릿의 동작 방식
 
 ### 🌱 템플릿의 동작 방식
@@ -35,3 +51,83 @@
 근데 만약에 구현부가 너무 길어 가독성이 좋지 않다면, 파일을 나눈 것이 더 좋을 수 있는데 이때는 컴파일러가 컴파일을 시도하는 cpp 파일이 아닌 다른 확장자를 가지는 파일에 구현을 해 주면 되고, 일반적으로는 template의 구현을 하는 파일이라고 해서 tpp라는 확장자를 가지는 파일에 구현을 한다고 한다.
 
 참고 : <https://stackoverflow.com/questions/44774036/why-use-a-tpp-file-when-implementing-templated-functions-and-classes-defined-i>
+
+## 전반적인 내용 참고
+
+- [C++ 트레이닝](https://www.hanbit.co.kr/store/books/look.php?p_code=B7818919239)
+- [전문가를 위한 C++](https://www.hanbit.co.kr/media/books/book_view.html?p_code=B3215427289)
+
+## 🌸 ETC
+
+### 🌱 `new T[0]`
+
+```cpp
+#include <iostream>
+int main(void)
+{
+	int *arr = new int[0];
+	if (arr == NULL)
+		std::cout << "is null" << std::endl;
+	else
+		std::cout << "is not null" << std::endl; // 이게 출력된다.
+	delete[] arr;
+}
+```
+
+int *arr = new int[0] 이렇게 길이가 0인 배열을 할당하려고 시도했을 때 할당도 되고, arr에 들어있는 값도 NULL이 아니다. malloc으로 할당했을 때도 똑같이 처리가 되더라 (할당 오류가 아니고, 할당 결과도 NULL이 아님)
+
+delete는 NULL pointer를 해제할 때 문제를 발생시키지 않으므로 사실 new의 결과가 NULL이든 아니든 상관은 없지만 (참고 : <https://www.cpp-junkie.com/2020/11/c-is-it-safe-to-delete-null-pointer.html>) 어쨌든 new T[0]으로 할당한 메모리는 해제도 잘 된다.
+
+하지만 0으로 할당된 배열을 참조하려고 할 때에는 정의되지 않은 동작이 나온다고 한다.. (분명히 집에서 쓰는 m1맥에서는 abort가 났었는데, 클러스터맥에서는 잘 접근이 된다;;; 당황스러움)
+
+```cpp
+#include <iostream>
+
+int main(void)
+{
+	int *arr = new int[0];
+	std::cout << arr[0] << std::endl;
+	int *marr = (int *)malloc(0);
+	std::cout << marr[0] << std::endl;
+	return 0;
+}
+```
+
+참고
+- <https://hashcode.co.kr/questions/608/new-int0%EB%8A%94-%EB%A9%94%EB%AA%A8%EB%A6%AC%EB%A5%BC-%ED%95%A0%EB%8B%B9-%ED%95%98%EB%82%98%EC%9A%94>
+- <https://stackoverflow.com/questions/1087042/c-new-int0-will-it-allocate-memory>
+
+표준에 의하면
+
+>When the value of the expression in a direct-new-declarator is zero, the allocation function is called to allocate an array with no elements.
+
+원소가 없는 배열을 할당한다고 되어 있고
+
+>The effect of dereferencing a pointer returned as a request for zero size is undefined.
+
+이렇게 인덱스로 접근했을 경우에 정의되지 않은 동작이 발생한다고 했으므로, 클러스터맥에서 뭔가 접근이 되는 것도 어쨌든 정의되지 동작 중 하나라고 생각하면 될 듯 하다. (그리고 과제에서 하란대로 [] 연산자를 잘 오버로딩 했으면 접근 시도시에 error throw될것이니까 상관없을 듯)
+
+### 🌱 typename 의 (보다 정확한) 의미
+
+`typename` 은 template에서만 사용하는 키워드인줄 알았는데... 아니었다.
+
+사실 template선언부에서 `typename`을 `class`로 지정해도 문제 없이 컴파일된다. (내 뇌피셜로는 자료형들도 클래스로 구현되어 있기 때문에... 그렇지 않을까 싶다.) 이 내용은 알고 있었는데 `typename`의 정확한 의미를 모르고 있었더니 평가 중에 관련된 질문을 받았을 때 굉장히 당황했었다ㅎㅎ.. 다행히 평가자님이 알려주셔서 새로 공부할 수 있게 되었다!!!!!
+
+아무튼 `typename`은 이 뒤에 오는 것이 **타입** 임을 알려주기 위한 키워드이다. 
+
+```cpp
+typedef T value_type;
+typedef Allocator allocator_type;
+typedef typename allocator_type::reference reference;
+typedef typename allocator_type::const_reference const_reference;
+typedef implementation-defined iterator;
+typedef implementation-defined const_iterator;
+typedef typename allocator_type::size_type size_type;
+typedef typename allocator_type::difference_type difference_type;
+typedef typename allocator_type::pointer pointer;
+typedef typename allocator_type::const_pointer const_pointer;
+typedef std::reverse_iterator<iterator> reverse_iterator;
+typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
+```
+
+벡터 헤더파일의 일부분인데 저렇게 typename 키워드가 붙어있는 것은 그 뒤에 있는 `allocator_type::reference` 같은 것들이 타입임을 알려주는 것이라고 한다.
