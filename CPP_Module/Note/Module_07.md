@@ -10,7 +10,23 @@
 
 함수 템플릿 정의 형식은 `template` 키워드로 시작하고, `<>` 괄호 안에 타입 인수임을 의미하는 `typename` 키워드와 그 아래부터 사용할 타입 인수의 이름을 적는다. (보통 타입 인수의 이름은 `T`를 사용한다.)
 
+![function_template_format](./imgs/function_template_format.png)
+
 만약에 템플릿 함수를 호출할 때 `int`를 사용하면, 타입 인수인 `T`는 `int`가 된다. `std::string`을 사용하면, 타입인수 `T`는 `std::string` 타입이 된다.
+
+---
+
+템플릿을 통해서 진짜 함수를 만들어내는 과정을 인스턴스화 (구체화) 라고 한다. 단순히 템플릿을 정의한 내용은 메모리 상에 저장되지 않는다.
+
+템플릿 함수를 호출하는 쪽에서 타입에 해당하는 인수를 전달하면 컴파일러는 그 인수와 템플릿을 이용해서 함수를 구체화한다.
+
+구체화하는 방식은 `min((int 타입 인자), (int 타입 인자))` 이렇게 해서 컴파일러가 알아서 타입을 추론하도록 하는 방식과 `min<int>(int 타입 인자), (int 타입 인자)` 이런 식으로 명시적으로 타입을 밝혀주는 방식이 있다.
+
+---
+
+`<typename T>` 이런 식으로 타입을 한개만 사용한다면 호출 시에 사용하는 인수의 타입이 다르면 에러이다. 따라서 다른 타입의 인수를 받게 하려면, 호출하고자 하는 템플릿 함수에서 어떤 타입으로 인수를 해석하면 좋을지 명시적으로 밝혀줘야 한다.
+
+`max<int>(42, 42.4)` 이런 식으로 템플릿 함수 max를 호출하면, 42.4는 int로 변환되어 템플릿 함수의 인자로 들어가게 된다.
 
 ## 🌸 클래스 템플릿
 
@@ -52,7 +68,7 @@ class myclass
 
 참고 : <https://stackoverflow.com/questions/44774036/why-use-a-tpp-file-when-implementing-templated-functions-and-classes-defined-i>
 
-## 전반적인 내용 참고
+## 🌸 전반적인 내용 참고
 
 - [C++ 트레이닝](https://www.hanbit.co.kr/store/books/look.php?p_code=B7818919239)
 - [전문가를 위한 C++](https://www.hanbit.co.kr/media/books/book_view.html?p_code=B3215427289)
