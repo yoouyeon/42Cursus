@@ -24,7 +24,7 @@ All my projects in 42 Seoul
 | 4      | **Exam Rank 04**                                             | [![jeyoon's 42 Exam Rank 04 Score](https://badge42.vercel.app/api/v2/cl3en3hhl008509lhaz01qt8t/project/2649846)](https://github.com/JaeSeoKim/badge42)                                           |
 | 5      | [**ft_containers**]()                                        | Not subscribed yet                                           |
 | 5      | [**Inception**]()                                            | Not subscribed yet                                           |
-| 5      | [**webserv**]()                                              | Not subscribed yet                                           |
-| 5      | **Exam Rank 05**                                             | Not subscribed yet                                           |
+| 5      | [**webserv**]()                                              | [![jeyoon's 42 webserv Score](https://badge42.vercel.app/api/v2/cl3en3hhl008509lhaz01qt8t/project/2874047)](https://github.com/JaeSeoKim/badge42)                                           |
+| 5      | **Exam Rank 05**                                             | [![jeyoon's 42 Exam Rank 05 Score](https://badge42.vercel.app/api/v2/cl3en3hhl008509lhaz01qt8t/project/2905446)](https://github.com/JaeSeoKim/badge42)                                           |
 | 6      | [**ft_transcendence**]()                                     | Not subscribed yet                                           |
 | 6      | **Exam Rank 06**                                             | Not subscribed yet                                           |
