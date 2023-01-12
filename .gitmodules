@@ -7,3 +7,6 @@
 [submodule "webserv"]
 	path = webserv
 	url = https://github.com/Jay13Jeong/soo-je-webserver
+[submodule "ft_containers"]
+	path = ft_containers
+	url = https://github.com/yoouyeon/ft_containers.git
